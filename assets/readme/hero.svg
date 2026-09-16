@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">freebuff-proxy - OpenAI-Compatible Proxy for Codebuff Free Mode</title>
+  <desc id="desc">High-performance reverse proxy routing OpenAI-compatible requests to Codebuff free-mode agent runs with multi-account pooling and cost-minimizing session reuse.</desc>
+
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d13"/>
+      <stop offset="100%" stop-color="#0f1722"/>
+    </linearGradient>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#58a6ff"/>
+      <stop offset="100%" stop-color="#bc8cff"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161e2a"/>
+      <stop offset="100%" stop-color="#111720"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="360" rx="20" fill="url(#bgGrad)"/>
+  <rect x="0.5" y="0.5" width="1199" height="359" rx="19.5" fill="none" stroke="#30363d" stroke-opacity="0.8"/>
+
+  <!-- Left Side: Project Identity & Value Proposition -->
+  <g id="title-block" transform="translate(60, 48)">
+    <!-- Category Badge -->
+    <rect x="0" y="0" width="220" height="28" rx="14" fill="#58a6ff" fill-opacity="0.12" stroke="#58a6ff" stroke-opacity="0.35"/>
+    <circle cx="14" cy="14" r="4" fill="#3fb950"/>
+    <text x="26" y="18" fill="#58a6ff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" letter-spacing="0.06em">OPENAI-COMPATIBLE PROXY</text>
+
+    <!-- Project Title -->
+    <text x="0" y="80" fill="url(#brandGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="800" letter-spacing="-0.02em">freebuff-proxy</text>
+
+    <!-- Subtitle & Concrete Description -->
+    <text x="0" y="118" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500">
+      Bridge any OpenAI client to Codebuff free mode.
+    </text>
+    <text x="0" y="142" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400">
+      Zero-cost session reuse, multi-account pooling &amp; signature emulation.
+    </text>
+
+    <!-- Feature Pills -->
+    <g transform="translate(0, 172)">
+      <!-- Pill 1 -->
+      <rect x="0" y="0" width="144" height="26" rx="6" fill="#1c2433" stroke="#30363d"/>
+      <text x="10" y="17" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500">⚡ Smart Cost Router</text>
+
+      <!-- Pill 2 -->
+      <rect x="154" y="0" width="138" height="26" rx="6" fill="#1c2433" stroke="#30363d"/>
+      <text x="164" y="17" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500">👥 Account Pooling</text>
+
+      <!-- Pill 3 -->
+      <rect x="302" y="0" width="144" height="26" rx="6" fill="#1c2433" stroke="#30363d"/>
+      <text x="312" y="17" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500">🛡️ Auto Fingerprint</text>
+    </g>
+
+    <!-- CLI Command Pill -->
+    <g transform="translate(0, 218)">
+      <rect x="0" y="0" width="370" height="38" rx="8" fill="#0d1117" stroke="#30363d"/>
+      <text x="16" y="24" fill="#3fb950" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">$</text>
+      <text x="32" y="24" fill="#f0f6fc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="600">pip install -e . &amp;&amp; freebuff-proxy</text>
+    </g>
+  </g>
+
+  <!-- Right Side: Native Terminal Proof -->
+  <g id="terminal-proof" transform="translate(560, 36)" filter="url(#shadow)">
+    <!-- Terminal Window -->
+    <rect width="580" height="288" rx="10" fill="url(#cardGrad)" stroke="#30363d" stroke-width="1.2"/>
+
+    <!-- Title Bar -->
+    <path d="M0 10 C0 4.477 4.477 0 10 0 L570 0 C575.523 0 580 4.477 580 10 L580 34 L0 34 Z" fill="#141b24"/>
+    <line x1="0" y1="34" x2="580" y2="34" stroke="#30363d" stroke-width="1"/>
+
+    <!-- Window Controls -->
+    <circle cx="20" cy="17" r="5.5" fill="#f85149" fill-opacity="0.9"/>
+    <circle cx="38" cy="17" r="5.5" fill="#d29922" fill-opacity="0.9"/>
+    <circle cx="56" cy="17" r="5.5" fill="#3fb950" fill-opacity="0.9"/>
+
+    <text x="210" y="22" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="600">freebuff-proxy — 127.0.0.1:8787</text>
+
+    <!-- Terminal Content Area -->
+    <g transform="translate(18, 48)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+      <!-- Status Badge inside Terminal -->
+      <rect x="0" y="4" width="544" height="30" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <circle cx="16" cy="19" r="4" fill="#3fb950"/>
+      <text x="28" y="23" fill="#3fb950" font-weight="700">ONLINE</text>
+      <text x="88" y="23" fill="#8b949e">http://127.0.0.1:8787/v1</text>
+      <text x="390" y="23" fill="#8b949e">Models: </text>
+      <text x="444" y="23" fill="#58a6ff" font-weight="600">glm-5.3-flash, mimo…</text>
+
+      <!-- Log Line 1: Server start -->
+      <text x="0" y="60" fill="#6e7681">01:38:02</text>
+      <rect x="68" y="48" width="58" height="18" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="73" y="61" fill="#58a6ff" font-weight="700">[server]</text>
+      <text x="134" y="60" fill="#c9d1d9">pool: 3 accounts active (15/25 freebucks)</text>
+
+      <!-- Log Line 2: Route request -->
+      <text x="0" y="88" fill="#6e7681">01:38:14</text>
+      <rect x="68" y="76" width="54" height="18" rx="4" fill="#bc8cff" fill-opacity="0.2"/>
+      <text x="75" y="89" fill="#bc8cff" font-weight="700">[route]</text>
+      <text x="134" y="88" fill="#f0f6fc">auto -&gt; z-ai/glm-5.3-flash (session hit)</text>
+
+      <!-- Log Line 3: Session reuse -->
+      <text x="0" y="116" fill="#6e7681">01:38:14</text>
+      <rect x="68" y="104" width="68" height="18" rx="4" fill="#d29922" fill-opacity="0.2"/>
+      <text x="72" y="117" fill="#d29922" font-weight="700">[session]</text>
+      <text x="144" y="116" fill="#c9d1d9">konopnicka… reused instance (0 freebucks)</text>
+
+      <!-- Log Line 4: Signature tool injection -->
+      <text x="0" y="144" fill="#6e7681">01:38:15</text>
+      <rect x="68" y="132" width="44" height="18" rx="4" fill="#238636" fill-opacity="0.2"/>
+      <text x="76" y="145" fill="#3fb950" font-weight="700">[run]</text>
+      <text x="122" y="144" fill="#c9d1d9">injected signature tool &amp; Buffy root prompt</text>
+
+      <!-- Log Line 5: Summary metrics -->
+      <text x="0" y="172" fill="#6e7681">01:38:16</text>
+      <rect x="68" y="160" width="76" height="18" rx="4" fill="#388bfd" fill-opacity="0.2"/>
+      <text x="72" y="173" fill="#79c0ff" font-weight="700">[summary]</text>
+      <text x="152" y="172" fill="#3fb950">200 OK</text>
+      <text x="202" y="172" fill="#8b949e">| 1,420+280 tok | 1.42s | stream</text>
+
+      <!-- Log Line 6: Prompt cursor -->
+      <text x="0" y="206" fill="#3fb950" font-weight="700">❯</text>
+      <text x="16" y="206" fill="#8b949e">ready for client connections...</text>
+      <rect x="250" y="194" width="8" height="15" fill="#58a6ff" fill-opacity="0.8"/>
+    </g>
+  </g>
+</svg>

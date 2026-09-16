@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "freebuff-proxy"
+version = "0.1.0"
+description = "OpenAI-compatible proxy for freebuff free mode (codebuff.com)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.0.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+freebuff-proxy = "server:main"
+
+[tool.setuptools]
+py-modules = ["server"]
