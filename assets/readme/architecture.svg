@@ -1,20 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="arch-title arch-desc">
   <title id="arch-title">freebuff-proxy Architecture</title>
-  <desc id="arch-desc">End-to-end architecture showing client requests routed through smart cost management, account pooling, signature emulation, and upstream Codebuff free mode.</desc>
+  <desc id="arch-desc">End-to-end request flow from OpenAI clients through freebuff-proxy core modules to Codebuff free mode upstream.</desc>
 
   <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d13"/>
+      <stop offset="100%" stop-color="#0e1520"/>
+    </linearGradient>
     <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#161e2a"/>
+      <stop offset="0%" stop-color="#151d28"/>
       <stop offset="100%" stop-color="#0f151e"/>
     </linearGradient>
     <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#141d2b"/>
-      <stop offset="100%" stop-color="#0b1118"/>
+      <stop offset="0%" stop-color="#141d2a"/>
+      <stop offset="100%" stop-color="#0b1017"/>
     </linearGradient>
-    <filter id="cardShadow" x="-2%" y="-2%" width="104%" height="108%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.4"/>
+    <filter id="shadow" x="-3%" y="-3%" width="106%" height="110%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
     </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#58a6ff"/>
     </marker>
     <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -22,134 +26,155 @@
     </marker>
   </defs>
 
-  <!-- Background Base -->
-  <rect width="1200" height="420" rx="20" fill="#090d13" stroke="#30363d" stroke-width="1"/>
+  <!-- Background Canvas -->
+  <rect width="1200" height="420" rx="16" fill="url(#bgGrad)" stroke="#30363d" stroke-width="1"/>
 
   <!-- Architecture Header -->
-  <g transform="translate(48, 36)">
-    <text x="0" y="0" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" letter-spacing="0.08em">SYSTEM ARCHITECTURE &amp; DATA FLOW</text>
-    <text x="0" y="24" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700">How freebuff-proxy turns Codebuff into an OpenAI Endpoint</text>
+  <g transform="translate(48, 30)">
+    <text x="0" y="0" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" letter-spacing="0.08em">SYSTEM ARCHITECTURE &amp; DATA FLOW</text>
+    <text x="0" y="22" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700">How freebuff-proxy turns Codebuff into an OpenAI Endpoint</text>
   </g>
 
-  <!-- Column 1: Clients -->
-  <g transform="translate(48, 90)" filter="url(#cardShadow)">
-    <rect width="200" height="290" rx="12" fill="url(#boxGrad)" stroke="#30363d" stroke-width="1.2"/>
-    <rect x="0" y="0" width="200" height="38" rx="12" fill="#1b2332"/>
-    <path d="M 0 26 L 0 38 L 200 38 L 200 26 Z" fill="#1b2332"/>
-    <text x="16" y="24" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700">OPENAI CLIENTS</text>
+  <!-- ==================== COLUMN 1: OPENAI CLIENTS ==================== -->
+  <g transform="translate(48, 72)" filter="url(#shadow)">
+    <!-- Container Box -->
+    <rect width="216" height="318" rx="10" fill="url(#boxGrad)" stroke="#30363d" stroke-width="1.2"/>
+    <path d="M 0 10 C 0 4.477 4.477 0 10 0 L 206 0 C 211.523 0 216 4.477 216 10 L 216 34 L 0 34 Z" fill="#1b2332"/>
+    <text x="14" y="22" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" letter-spacing="0.04em">OPENAI CLIENTS</text>
 
-    <!-- Client items -->
-    <g transform="translate(14, 52)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
-      <!-- Item 1: pi / omp -->
-      <rect x="0" y="0" width="172" height="34" rx="6" fill="#0d1117" stroke="#21262d"/>
-      <circle cx="16" cy="17" r="4" fill="#58a6ff"/>
-      <text x="28" y="21" fill="#f0f6fc" font-weight="600">pi / omp</text>
-      <text x="96" y="21" fill="#8b949e">coding agent</text>
-
-      <!-- Item 2: qwen -->
-      <rect x="0" y="44" width="172" height="34" rx="6" fill="#0d1117" stroke="#21262d"/>
-      <circle cx="16" cy="17" r="4" fill="#bc8cff"/>
-      <text x="28" y="21" fill="#f0f6fc" font-weight="600">qwen-agent</text>
-      <text x="122" y="21" fill="#8b949e">CLI</text>
-
-      <!-- Item 3: cline / continue -->
-      <rect x="0" y="88" width="172" height="34" rx="6" fill="#0d1117" stroke="#21262d"/>
-      <circle cx="16" cy="17" r="4" fill="#3fb950"/>
-      <text x="28" y="21" fill="#f0f6fc" font-weight="600">cline / IDE</text>
-      <text x="116" y="21" fill="#8b949e">extension</text>
-
-      <!-- Item 4: curl / SDK -->
-      <rect x="0" y="132" width="172" height="34" rx="6" fill="#0d1117" stroke="#21262d"/>
-      <circle cx="16" cy="17" r="4" fill="#d29922"/>
-      <text x="28" y="21" fill="#f0f6fc" font-weight="600">curl / SDK</text>
-      <text x="110" y="21" fill="#8b949e">custom app</text>
+    <!-- Client Card 1: pi / omp -->
+    <g transform="translate(12, 44)">
+      <rect width="192" height="46" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <circle cx="16" cy="18" r="4" fill="#58a6ff"/>
+      <text x="28" y="21" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">pi / omp</text>
+      <text x="28" y="37" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10">AI coding harness</text>
     </g>
 
-    <!-- Request payload note -->
-    <text x="16" y="246" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">Standard API request:</text>
-    <text x="16" y="264" fill="#58a6ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="600">POST /v1/chat/completions</text>
-  </g>
+    <!-- Client Card 2: qwen-agent -->
+    <g transform="translate(12, 98)">
+      <rect width="192" height="46" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <circle cx="16" cy="18" r="4" fill="#bc8cff"/>
+      <text x="28" y="21" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">qwen-agent</text>
+      <text x="28" y="37" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10">terminal &amp; web agent</text>
+    </g>
 
-  <!-- Arrow 1: Clients -> Proxy -->
-  <path d="M 248 235 L 300 235" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
-  <text x="252" y="222" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">HTTP / SSE</text>
+    <!-- Client Card 3: cline / continue -->
+    <g transform="translate(12, 152)">
+      <rect width="192" height="46" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <circle cx="16" cy="18" r="4" fill="#3fb950"/>
+      <text x="28" y="21" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">cline / continue</text>
+      <text x="28" y="37" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10">IDE extensions</text>
+    </g>
 
-  <!-- Column 2: Freebuff Proxy Core -->
-  <g transform="translate(310, 80)" filter="url(#cardShadow)">
-    <rect width="530" height="310" rx="14" fill="url(#coreGrad)" stroke="#58a6ff" stroke-opacity="0.4" stroke-width="1.5"/>
-    <rect x="0" y="0" width="530" height="38" rx="14" fill="#152233"/>
-    <path d="M 0 26 L 0 38 L 530 38 L 530 26 Z" fill="#152233"/>
+    <!-- Client Card 4: curl / SDK -->
+    <g transform="translate(12, 206)">
+      <rect width="192" height="46" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <circle cx="16" cy="18" r="4" fill="#d29922"/>
+      <text x="28" y="21" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">curl / python-sdk</text>
+      <text x="28" y="37" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10">custom scripts &amp; apps</text>
+    </g>
 
-    <circle cx="20" cy="19" r="5" fill="#58a6ff"/>
-    <text x="34" y="24" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700">FREEBUFF-PROXY CORE</text>
-    <text x="350" y="23" fill="#3fb950" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="600">localhost:8787/v1</text>
-
-    <!-- Core Sub-Modules Grid -->
-    <g transform="translate(18, 50)">
-      <!-- Module 1: Smart Router -->
-      <rect x="0" y="0" width="238" height="100" rx="8" fill="#0d1117" stroke="#30363d"/>
-      <text x="14" y="22" fill="#58a6ff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700">1. Smart Cost Router</text>
-      <text x="14" y="42" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Reuses active sessions (0 cost)</text>
-      <text x="14" y="60" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Model `auto` routes cheapest</text>
-      <text x="14" y="78" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Selects richest balance account</text>
-
-      <!-- Module 2: Account Pool -->
-      <rect x="256" y="0" width="238" height="100" rx="8" fill="#0d1117" stroke="#30363d"/>
-      <text x="14" y="22" fill="#bc8cff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700">2. Multi-Account Pool</text>
-      <text x="14" y="42" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Discovers ~/.config creds &amp; env</text>
-      <text x="14" y="60" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• 25 freebucks/day per account</text>
-      <text x="14" y="78" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Auto cooldown on 402/403 errors</text>
-
-      <!-- Module 3: Signature & Shaper -->
-      <rect x="0" y="112" width="238" height="126" rx="8" fill="#0d1117" stroke="#30363d"/>
-      <text x="14" y="22" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700">3. Signature &amp; Tool Emulation</text>
-      <text x="14" y="42" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Enforces Buffy root prompt</text>
-      <text x="14" y="60" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Injects `run_file_change_hooks`</text>
-      <text x="14" y="78" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Filters injected tool from stream</text>
-      <text x="14" y="98" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Stable client_id prevents fanout</text>
-
-      <!-- Module 4: Session & Run Lifecycle -->
-      <rect x="256" y="112" width="238" height="126" rx="8" fill="#0d1117" stroke="#30363d"/>
-      <text x="14" y="22" fill="#d29922" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700">4. Session &amp; Run Lifecycle</text>
-      <text x="14" y="42" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• 1-hour session lifetime</text>
-      <text x="14" y="60" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Unlimited requests per session</text>
-      <text x="14" y="78" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Reuses agent runs (START action)</text>
-      <text x="14" y="98" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11">• Zero burns on restart (adopts)</text>
+    <!-- Bottom Request Pill -->
+    <g transform="translate(12, 260)">
+      <rect width="192" height="44" rx="6" fill="#161e2a" stroke="#30363d"/>
+      <text x="10" y="18" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9">Standard OpenAI request:</text>
+      <text x="10" y="34" fill="#58a6ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" font-weight="600">/v1/chat/completions</text>
     </g>
   </g>
 
-  <!-- Arrow 2: Proxy -> Codebuff -->
-  <path d="M 840 235 L 892 235" stroke="#3fb950" stroke-width="2" marker-end="url(#arrow-green)"/>
-  <text x="844" y="222" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">HTTPS API</text>
+  <!-- Arrow: Clients -> Proxy -->
+  <path d="M 264 231 L 314 231" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-blue)"/>
+  <text x="265" y="220" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9">HTTP/SSE</text>
 
-  <!-- Column 3: Upstream Codebuff Free Mode -->
-  <g transform="translate(902, 90)" filter="url(#cardShadow)">
-    <rect width="250" height="290" rx="12" fill="url(#boxGrad)" stroke="#30363d" stroke-width="1.2"/>
-    <rect x="0" y="0" width="250" height="38" rx="12" fill="#1f2937"/>
-    <path d="M 0 26 L 0 38 L 250 38 L 250 26 Z" fill="#1f2937"/>
-    <text x="16" y="24" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700">CODEBUFF UPSTREAM</text>
+  <!-- ==================== COLUMN 2: PROXY CORE ==================== -->
+  <g transform="translate(322, 64)" filter="url(#shadow)">
+    <!-- Container Box -->
+    <rect width="536" height="332" rx="12" fill="url(#coreGrad)" stroke="#58a6ff" stroke-opacity="0.35" stroke-width="1.5"/>
+    <path d="M 0 12 C 0 5.373 5.373 0 12 0 L 524 0 C 530.627 0 536 5.373 536 12 L 536 36 L 0 36 Z" fill="#152132"/>
+    <circle cx="18" cy="18" r="4.5" fill="#58a6ff"/>
+    <text x="32" y="22" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700">FREEBUFF-PROXY CORE</text>
+    <text x="364" y="22" fill="#3fb950" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="600">localhost:8787/v1</text>
 
-    <!-- Upstream details -->
-    <g transform="translate(14, 52)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">
-      <!-- Upstream 1: codebuff.com -->
-      <rect x="0" y="0" width="222" height="48" rx="6" fill="#0d1117" stroke="#21262d"/>
-      <text x="12" y="20" fill="#f0f6fc" font-weight="600">codebuff.com</text>
-      <text x="12" y="38" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">POST /api/v1/freebuff/session</text>
-
-      <!-- Upstream 2: Agent Runs -->
-      <rect x="0" y="58" width="222" height="48" rx="6" fill="#0d1117" stroke="#21262d"/>
-      <text x="12" y="20" fill="#f0f6fc" font-weight="600">Agent Root Execution</text>
-      <text x="12" y="38" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">POST /api/v1/agent-runs</text>
-
-      <!-- Upstream 3: Models -->
-      <rect x="0" y="116" width="222" height="60" rx="6" fill="#0d1117" stroke="#21262d"/>
-      <text x="12" y="20" fill="#3fb950" font-weight="600">Free Mode Models</text>
-      <text x="12" y="38" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">GLM-5.3-Flash (5fb)</text>
-      <text x="12" y="52" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">Mimo 2.5, DeepSeek, Luna…</text>
+    <!-- Module 1 (Top-Left): Smart Cost Router -->
+    <g transform="translate(14, 46)">
+      <rect width="246" height="130" rx="7" fill="#0d1117" stroke="#21262d"/>
+      <text x="12" y="20" fill="#58a6ff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">1. Smart Cost Router</text>
+      <text x="12" y="44" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Reuses open sessions (0 cost)</text>
+      <text x="12" y="66" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• 'auto' picks cheapest model</text>
+      <text x="12" y="88" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Dispatches to richest balance</text>
+      <text x="12" y="110" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Auto cooldown on 402/403</text>
     </g>
 
-    <!-- Verification tag -->
-    <rect x="14" y="244" width="222" height="24" rx="4" fill="#238636" fill-opacity="0.15" stroke="#238636" stroke-opacity="0.4"/>
-    <text x="24" y="260" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600">✓ Official CLI Fingerprint Verified</text>
+    <!-- Module 2 (Top-Right): Multi-Account Pool -->
+    <g transform="translate(276, 46)">
+      <rect width="246" height="130" rx="7" fill="#0d1117" stroke="#21262d"/>
+      <text x="12" y="20" fill="#bc8cff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">2. Multi-Account Pool</text>
+      <text x="12" y="44" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Discovers ~/.config creds &amp; env</text>
+      <text x="12" y="66" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• 25 freebucks/day per account</text>
+      <text x="12" y="88" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• N accounts = N active sessions</text>
+      <text x="12" y="110" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Deduped by email and token</text>
+    </g>
+
+    <!-- Module 3 (Bottom-Left): Signature & Tool Shaper -->
+    <g transform="translate(14, 186)">
+      <rect width="246" height="132" rx="7" fill="#0d1117" stroke="#21262d"/>
+      <text x="12" y="20" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">3. Signature &amp; Tool Shaper</text>
+      <text x="12" y="44" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Injects Buffy root system prompt</text>
+      <text x="12" y="66" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Adds run_file_change_hooks</text>
+      <text x="12" y="88" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Scrubs injected tool from stream</text>
+      <text x="12" y="110" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Stable client_id per run</text>
+    </g>
+
+    <!-- Module 4 (Bottom-Right): Session & Run Engine -->
+    <g transform="translate(276, 186)">
+      <rect width="246" height="132" rx="7" fill="#0d1117" stroke="#21262d"/>
+      <text x="12" y="20" fill="#d29922" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">4. Session &amp; Run Engine</text>
+      <text x="12" y="44" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Random enhanced-… fingerprint</text>
+      <text x="12" y="66" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• 1-hour session lifetime (unlimited)</text>
+      <text x="12" y="88" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Reuses agent runs (START action)</text>
+      <text x="12" y="110" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Adopts sessions across restarts</text>
+    </g>
+  </g>
+
+  <!-- Arrow: Proxy -> Upstream -->
+  <path d="M 858 231 L 906 231" stroke="#3fb950" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="860" y="220" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9">HTTPS</text>
+
+  <!-- ==================== COLUMN 3: CODEBUFF UPSTREAM ==================== -->
+  <g transform="translate(914, 72)" filter="url(#shadow)">
+    <!-- Container Box -->
+    <rect width="238" height="318" rx="10" fill="url(#boxGrad)" stroke="#30363d" stroke-width="1.2"/>
+    <path d="M 0 10 C 0 4.477 4.477 0 10 0 L 228 0 C 233.523 0 238 4.477 238 10 L 238 34 L 0 34 Z" fill="#1b2332"/>
+    <text x="14" y="22" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" letter-spacing="0.04em">CODEBUFF UPSTREAM</text>
+
+    <!-- Upstream Card 1: API Endpoint -->
+    <g transform="translate(12, 44)">
+      <rect width="214" height="52" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <text x="12" y="22" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">codebuff.com API</text>
+      <text x="12" y="40" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9.5">POST /api/v1/freebuff/session</text>
+    </g>
+
+    <!-- Upstream Card 2: Agent Runs -->
+    <g transform="translate(12, 106)">
+      <rect width="214" height="52" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <text x="12" y="22" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Agent Run Engine</text>
+      <text x="12" y="40" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9.5">POST /api/v1/agent-runs</text>
+    </g>
+
+    <!-- Upstream Card 3: Free Mode Models -->
+    <g transform="translate(12, 168)">
+      <rect width="214" height="82" rx="6" fill="#0d1117" stroke="#21262d"/>
+      <text x="12" y="20" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Free Mode Models</text>
+      <text x="12" y="38" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• GLM-5.3-Flash, Kimi (5fb)</text>
+      <text x="12" y="56" fill="#c9d1d9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• Mimo 2.5, Solar (10fb)</text>
+      <text x="12" y="74" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5">• DeepSeek, Luna, Gemini…</text>
+    </g>
+
+    <!-- Bottom Badge -->
+    <g transform="translate(12, 260)">
+      <rect width="214" height="44" rx="6" fill="#238636" fill-opacity="0.12" stroke="#238636" stroke-opacity="0.4"/>
+      <text x="16" y="20" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700">✓ CLI Fingerprint Verified</text>
+      <text x="16" y="35" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5">Emulates official CLI binary</text>
+    </g>
   </g>
 </svg>
